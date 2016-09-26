@@ -1,0 +1,29 @@
+extends layout
+block content
+  .row
+    .col-md-8.col-md-offset-4
+      form.form-inline(ng-submit='getWeather()')
+        .form-group
+          input#location.form-control(type='text', placeholder='City name...', autocomplete='off' ng-model='cityName')
+        .form-group
+          button.btn.btn-primary(type='submit' class="btn-search") Search Weather!
+  br
+  .row
+    .col-md-6.col-md-offset-3
+      h3 {{location}}
+  .row
+    .col-md-6.col-md-offset-3
+      .panel.panel-primary
+        .panel-heading Monday, September 26, 2016
+        .panel-body clear sky ~  High: 16.14°C ~  Low: 12.9°C
+        .panel-footer clear sky ~  High: 16.14°C ~  Low: 12.9°C
+  hr
+  .row
+    .col-md-8.col-md-offset-4
+      form.form-inline(ng-submit='getRestaurants()')
+        .form-group
+          label(for='foodCategory') Food:
+          select#foodCategory.form-control(name='foodCategory', ng-model='foodCategory')
+            option(ng-repeat='option in foodCategoryList', value='{{option}}') {{option}}
+        .form-group
+          button.btn.btn-primary(type='submit' class="btn-search") Search Restaurants!
