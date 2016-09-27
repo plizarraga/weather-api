@@ -8,21 +8,21 @@ block content
         .form-group
           button.btn.btn-primary(type='submit' class="btn-search") Search Weather!
   br
-  .row
+  .row(ng-if="location")
     .col-md-6.col-md-offset-3
       h3 {{location}}
-  .row
+  .row(ng-if="location" ng-repeat='wheater in weatherList')
     .col-md-6.col-md-offset-3
       .panel.panel-primary
         .panel-heading Monday, September 26, 2016
-        .panel-body clear sky ~  High: 16.14°C ~  Low: 12.9°C
-        .panel-footer clear sky ~  High: 16.14°C ~  Low: 12.9°C
+        .panel-body light rain ~  High: 17.34°C ~  Low: 12.03°C
+        .panel-footer Day: 17.34°C ~  Night: 13.38°C ~  Pressure: 1032.59 hPa ~  Humidity: 0%
   hr
-  .row
+  .row(ng-if="location")
     .col-md-8.col-md-offset-4
       form.form-inline(ng-submit='getRestaurants()')
         .form-group
-          label(for='foodCategory') Food:
+          label(for='foodCategory') Kind of Food:
           select#foodCategory.form-control(name='foodCategory', ng-model='foodCategory')
             option(ng-repeat='option in foodCategoryList', value='{{option}}') {{option}}
         .form-group
