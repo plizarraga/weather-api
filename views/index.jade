@@ -14,16 +14,32 @@ block content
   .row(ng-if="location" ng-repeat='wheater in weatherList')
     .col-md-6.col-md-offset-3
       .panel.panel-primary
-        .panel-heading Monday, September 26, 2016
-        .panel-body light rain ~  High: 17.34°C ~  Low: 12.03°C
-        .panel-footer Day: 17.34°C ~  Night: 13.38°C ~  Pressure: 1032.59 hPa ~  Humidity: 0%
+        .panel-heading {{wheater.day}}, {{wheater.date}}
+        .panel-body 
+          span {{wheater.text}} -  
+          span.glyphicon.glyphicon-arrow-up(aria-hidden="true") 
+          span High: {{wheater.high}}°F - 
+          span.glyphicon.glyphicon-arrow-down(aria-hidden="true")  
+          span Low: {{wheater.low}}°F
+        .panel-footer Humidity: 0%
   hr
   .row(ng-if="location")
     .col-md-8.col-md-offset-4
-      form.form-inline(ng-submit='getRestaurants()')
+      form.form-inline(ng-submit='getRestaurants(selecetdCategory)')
         .form-group
           label(for='foodCategory') Kind of Food:
-          select#foodCategory.form-control(name='foodCategory', ng-model='foodCategory')
-            option(ng-repeat='option in foodCategoryList', value='{{option}}') {{option}}
+          select#foodCategory.form-control(name='foodCategory', ng-model='selecetdCategory' ng-options='option for option in foodCategoryList')
         .form-group
           button.btn.btn-primary(type='submit' class="btn-search") Search Restaurants!
+  br
+  .row(ng-repeat='restaurant in restaurantsList' ng-if="restaurantsList")
+      .col-md-6.col-md-offset-3
+        .panel.panel-primary
+          .panel-heading {{restaurant.Title}}
+          .panel-body 
+            p {{restaurant.Address}}, {{restaurant.City}}, {{restaurant.State}}
+            p {{restaurant.Categories.Category[0].content}}
+            p 
+              a(href="{{restaurant.BusinessUrl}}" target="_blank" ng-if="restaurant.BusinessUrl") Official Site
+          .panel-footer 
+            p(ng-if="restaurant.Phone") Phone: {{restaurant.Phone}}

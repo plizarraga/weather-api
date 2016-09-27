@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Weather API' });
+  res.render('index', { title: 'Weather APP' });
 });
 
 module.exports = router;

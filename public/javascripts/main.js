@@ -2,11 +2,12 @@ angular.module('weatherApp', [])
 .controller('WeatherController', function($scope, $http) {
 
 	$scope.init = function(){
-		$scope.cityName = 'Mexicali, Baja California';
+		$scope.cityName = 'San Diego, CA';
 		$scope.location = '';
-		$scope.foodCategory = 'Sushi';
 		$scope.foodCategoryList = ['Sushi', 'Mexican','Italian', 'Fast Food', 'Coffe Shop', 'Japanese'];
+		$scope.selecetdCategory = 'Sushi';
 		$scope.weatherList = [];
+		$scope.restaurantsList = [];
 		$scope.getWeather();
 	};
 
@@ -14,14 +15,15 @@ angular.module('weatherApp', [])
 		url = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\""+$scope.cityName+"\")&format=json&env=store://datatables.org/alltableswithkeys"
 		$http.get(url)
 		.success(function(data) {
-			console.log(data);
+			// console.log(data);
 			if(data.query.results){
 				var loc = data.query.results.channel.location;
-				$scope.weatherList = data.query.results.channel.item.forecast;
 				$scope.location = loc.city + ", " + loc.region + ", " + loc.country;
-					// @todo - mostar el clima de 5 dias
+				$scope.weatherList = getWeatherItems(data.query.results.channel.item.forecast);
+				$scope.restaurantsList = [];
 				}else{
 					$scope.location = ''
+					$scope.restaurantsList = [];
 					console.log('Please enter a valid location');					
 				}
 			})
@@ -30,14 +32,15 @@ angular.module('weatherApp', [])
 		});
 	};
 
-	$scope.getRestaurants = function(){
-		url = "https://query.yahooapis.com/v1/public/yql?q=select * from local.search where query=\""+$scope.foodCategory+"\" and location=\""+$scope.cityName+"\"&format=json&env=store://datatables.org/alltableswithkeys"
+	$scope.getRestaurants = function(categoria){
+		url = "https://query.yahooapis.com/v1/public/yql?q=select * from local.search where query=\""+categoria+"\" and location=\""+$scope.cityName+"\"&format=json&env=store://datatables.org/alltableswithkeys"
 		$http.get(url)
 		.success(function(data) {
-			console.log(data);
+			// console.log(data);
 			if(data.query.results){
-					// @todo - renderear los restaurantes
+				$scope.restaurantsList = getRestaurantstems(data.query.results.Result);
 				}else{
+					$scope.restaurantsList = [];
 					console.log("No restaurants found")
 				}
 			})
@@ -45,4 +48,21 @@ angular.module('weatherApp', [])
 			console.log('Error:' + data);
 		});
 	};
+
+	function getWeatherItems(data){
+		var list = [];
+		for (var i = 0; i < 5; i++) {
+			// console.log(data[i]);
+			list.push(data[i]);
+		}
+		return list;
+	};
+	function getRestaurantstems(data){
+		var list = [];
+		for (var i = 0; i < 5; i++) {
+			console.log(data[i]);
+			list.push(data[i]);
+		}
+		return list;
+	}
 });
