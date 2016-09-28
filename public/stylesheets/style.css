@@ -1,3 +1,7 @@
 .btn-search{
 	margin-left: 5px;
 }
+
+.panel-height{
+	min-height: 150px;
+}

@@ -10,6 +10,7 @@ angular.module('weatherApp', [])
 		$scope.weatherList = [];
 		$scope.restaurantsList = [];
 		$scope.getWeather();
+		$scope.numeros = [1,5,4,7,8]
 	};
 
 	$scope.getWeather = function(){
