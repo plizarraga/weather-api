@@ -2,7 +2,7 @@ var expect = require('chai').expect;
 var request = require('superagent');
 var assert = require('assert');
 
-var urlAPI = 'http://localhost:8000/api';
+var urlAPI = 'http://localhost:5000/api';
 
 describe('Weather API', function(){
 	describe('when requested at /wheawter/san diego', function(){

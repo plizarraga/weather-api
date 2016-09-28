@@ -1,6 +1,6 @@
 angular.module('weatherApp', [])
 .controller('WeatherController', function($scope, $http) {
-	var url_api = "http://localhost:8000/api";
+	var url_api = "http://localhost:5000/api";
 	
 	$scope.init = function(){
 		$scope.cityName = 'San Diego, CA';
@@ -10,7 +10,6 @@ angular.module('weatherApp', [])
 		$scope.weatherList = [];
 		$scope.restaurantsList = [];
 		$scope.getWeather();
-		$scope.numeros = [1,5,4,7,8]
 	};
 
 	$scope.getWeather = function(){
