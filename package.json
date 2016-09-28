@@ -16,6 +16,9 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
-    "nodemon": "^1.10.2"
+    "chai": "^3.5.0",
+    "mocha": "^3.1.0",
+    "nodemon": "^1.10.2",
+    "superagent": "^2.3.0"
   }
 }
