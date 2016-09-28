@@ -1,6 +1,6 @@
 angular.module('weatherApp', [])
 .controller('WeatherController', function($scope, $http) {
-	var url_api = "http://localhost:8000/";
+	var url_api = "http://localhost:8000/api";
 	
 	$scope.init = function(){
 		$scope.cityName = 'San Diego, CA';
@@ -13,7 +13,8 @@ angular.module('weatherApp', [])
 	};
 
 	$scope.getWeather = function(){
-		$http.get(url_api+`weather/${$scope.cityName}`)
+		var city = $scope.cityName.toLowerCase();
+		$http.get(url_api+`/weather/${city}`)
 		.success(function(data) {
 			if(data.query.results){
 				var loc = data.query.results.channel.location;
@@ -32,9 +33,9 @@ angular.module('weatherApp', [])
 	};
 
 	$scope.getRestaurants = function(categoria){
-		var	url = "https://query.yahooapis.com/v1/public/yql?q=select * from local.search where query=\""+categoria+"\" and location=\""+$scope.cityName+"\"&format=json&env=store://datatables.org/alltableswithkeys"
-		// $http.get(url_api+`restaurants/${$scope.cityName}/${categoria}`)
-		$http.get(url)
+		var category = categoria.toLowerCase();
+		var city = $scope.cityName.toLowerCase();
+		$http.get(url_api+`/restaurants/${city}/${category}`)
 		.success(function(data) {
 			if(data.query.results){
 				$scope.restaurantsList = getItems(data.query.results.Result);
