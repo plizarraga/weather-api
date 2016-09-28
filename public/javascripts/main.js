@@ -1,6 +1,7 @@
 angular.module('weatherApp', [])
 .controller('WeatherController', function($scope, $http) {
-
+	var url_api = "http://localhost:8000/";
+	
 	$scope.init = function(){
 		$scope.cityName = 'San Diego, CA';
 		$scope.location = '';
@@ -12,14 +13,12 @@ angular.module('weatherApp', [])
 	};
 
 	$scope.getWeather = function(){
-		url = "https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\""+$scope.cityName+"\")&format=json&env=store://datatables.org/alltableswithkeys"
-		$http.get(url)
+		$http.get(url_api+`weather/${$scope.cityName}`)
 		.success(function(data) {
-			// console.log(data);
 			if(data.query.results){
 				var loc = data.query.results.channel.location;
 				$scope.location = loc.city + ", " + loc.region + ", " + loc.country;
-				$scope.weatherList = getWeatherItems(data.query.results.channel.item.forecast);
+				$scope.weatherList = getItems(data.query.results.channel.item.forecast);
 				$scope.restaurantsList = [];
 				}else{
 					$scope.location = ''
@@ -33,12 +32,10 @@ angular.module('weatherApp', [])
 	};
 
 	$scope.getRestaurants = function(categoria){
-		url = "https://query.yahooapis.com/v1/public/yql?q=select * from local.search where query=\""+categoria+"\" and location=\""+$scope.cityName+"\"&format=json&env=store://datatables.org/alltableswithkeys"
-		$http.get(url)
+		$http.get(url_api+`restaurants/${$scope.cityName}/${categoria}`)
 		.success(function(data) {
-			// console.log(data);
 			if(data.query.results){
-				$scope.restaurantsList = getRestaurantsItems(data.query.results.Result);
+				$scope.restaurantsList = getItems(data.query.results.Result);
 				}else{
 					$scope.restaurantsList = [];
 					console.log("No restaurants found")
@@ -49,19 +46,11 @@ angular.module('weatherApp', [])
 		});
 	};
 
-	function getWeatherItems(data){
+	function getItems(data){
 		var list = [];
 		for (var i = 0; i < 5; i++) {
-			// console.log(data[i]);
 			list.push(data[i]);
 		}
 		return list;
 	};
-	function getRestaurantsItems(data){
-		var list = [];
-		for (var i = 0; i < 5; i++) {
-			list.push(data[i]);
-		}
-		return list;
-	}
 });
