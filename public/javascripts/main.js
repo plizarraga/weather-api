@@ -32,7 +32,9 @@ angular.module('weatherApp', [])
 	};
 
 	$scope.getRestaurants = function(categoria){
-		$http.get(url_api+`restaurants/${$scope.cityName}/${categoria}`)
+		var	url = "https://query.yahooapis.com/v1/public/yql?q=select * from local.search where query=\""+categoria+"\" and location=\""+$scope.cityName+"\"&format=json&env=store://datatables.org/alltableswithkeys"
+		// $http.get(url_api+`restaurants/${$scope.cityName}/${categoria}`)
+		$http.get(url)
 		.success(function(data) {
 			if(data.query.results){
 				$scope.restaurantsList = getItems(data.query.results.Result);
