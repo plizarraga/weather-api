@@ -38,7 +38,7 @@ angular.module('weatherApp', [])
 		.success(function(data) {
 			// console.log(data);
 			if(data.query.results){
-				$scope.restaurantsList = getRestaurantstems(data.query.results.Result);
+				$scope.restaurantsList = getRestaurantsItems(data.query.results.Result);
 				}else{
 					$scope.restaurantsList = [];
 					console.log("No restaurants found")
@@ -57,10 +57,9 @@ angular.module('weatherApp', [])
 		}
 		return list;
 	};
-	function getRestaurantstems(data){
+	function getRestaurantsItems(data){
 		var list = [];
 		for (var i = 0; i < 5; i++) {
-			console.log(data[i]);
 			list.push(data[i]);
 		}
 		return list;
