@@ -1,6 +1,6 @@
 angular.module('weatherApp', [])
 .controller('WeatherController', function($scope, $http) {
-	var url_api = "http://localhost/api";
+	var url_api = "https://weather-app-online.herokuapp.com/api";
 	
 	$scope.init = function(){
 		$scope.cityName = 'San Diego, CA';
