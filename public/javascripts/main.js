@@ -1,12 +1,12 @@
 angular.module('weatherApp', [])
 .controller('WeatherController', function($scope, $http) {
 	var url_api = "https://weather-app-online.herokuapp.com/api";
+	// var url_api = "http://localhost:5000/api";
 	
 	$scope.init = function(){
 		$scope.cityName = 'San Diego, CA';
 		$scope.location = '';
 		$scope.foodCategoryList = ['Sushi', 'Mexican','Italian', 'Fast Food', 'Coffe Shop', 'Japanese'];
-		$scope.selecetdCategory = 'Sushi';
 		$scope.weatherList = [];
 		$scope.restaurantsList = [];
 		$scope.getWeather();
