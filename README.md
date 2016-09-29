@@ -24,6 +24,3 @@ Weather API  - [Demo](https://weather-app-online.herokuapp.com/)
 	* npm install
 	* npm install -g mocha
 	* npm start
-	
-##ToDo
-	* Login
